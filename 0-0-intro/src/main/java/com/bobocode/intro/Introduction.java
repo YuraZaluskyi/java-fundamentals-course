@@ -22,7 +22,8 @@ public class Introduction {
      * @return "The key to efficient learning is practice!"
      */
     public String getWelcomeMessage() {
-        throw new ExerciseNotCompletedException(); // todo: refactor it to return a message according to javadoc
+//        throw new ExerciseNotCompletedException(); // todo: refactor it to return a message according to javadoc
+        return "The key to efficient learning is practice!";
     }
 
     /**
