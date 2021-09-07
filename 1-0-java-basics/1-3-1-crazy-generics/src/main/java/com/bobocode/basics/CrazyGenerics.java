@@ -225,7 +225,7 @@ public class CrazyGenerics {
      * @return optional max value
      */
     // todo: create a method and implement its logic manually without using util method from JDK
-    public static <T> Optional<T> findMax(Iterable<T> elements, Comparator<T> comparator) {
+    public static <T> Optional<T> findMax(Iterable<T> elements, Comparator<? super T> comparator) {
       Iterator<T> iterator = elements.iterator();
       T max = iterator.next();
       T current;
@@ -239,18 +239,21 @@ public class CrazyGenerics {
     }
 
     /**
-     * findMostRecentlyCreatedEntity is a generic util method that accepts a collection of entities and returns the
-     * one that is the most recently created. If collection is empty,
-     * it throws {@link java.util.NoSuchElementException}.
+     * findMostRecentlyCreatedEntity is a generic util method that accepts a collection of entities
+     * and returns the one that is the most recently created. If collection is empty, it throws
+     * {@link java.util.NoSuchElementException}.
      * <p>
      * This method reuses findMax method and passes entities along with prepare comparator instance,
      * that is stored as constant CREATED_ON_COMPARATOR.
      *
      * @param entities provided collection of entities
-     * @param <T>      entity type
+     * @param <T> entity type
      * @return an entity from the given collection that has the max createdOn value
      */
     // todo: create a method according to JavaDoc and implement it using previous method
+    public static <T extends BaseEntity> T findMostRecentlyCreatedEntity(Collection<T> entities) {
+      return findMax(entities, CREATED_ON_COMPARATOR).orElseThrow();
+    }
 
     /**
      * An util method that allows to swap two elements of any list. It changes the list so the
