@@ -2,6 +2,8 @@ package com.bobocode.basics;
 
 import com.bobocode.basics.util.BaseEntity;
 import com.bobocode.util.ExerciseNotCompletedException;
+import java.util.Iterator;
+import java.util.Optional;
 import java.util.function.Predicate;
 import lombok.Data;
 
@@ -208,20 +210,33 @@ public class CrazyGenerics {
      * @param <T> entity type
      * @return true if entities list contains target entity more than once
      */
-    public static boolean hasDuplicates() {
-      throw new ExerciseNotCompletedException(); // todo: update method signature and implement it
+    public static <T extends BaseEntity> boolean hasDuplicates(List<T> entities, T targetEntity) {
+//      throw new ExerciseNotCompletedException(); // todo: update method signature and implement it
+      return entities.stream().filter(i -> i.getUuid().equals(targetEntity.getUuid())).count() > 1;
     }
 
     /**
-     * findMax is a generic util method that accepts an {@link Iterable} and {@link Comparator} and returns an
-     * optional object, that has maximum "value" based on the given comparator.
+     * findMax is a generic util method that accepts an {@link Iterable} and {@link Comparator} and
+     * returns an optional object, that has maximum "value" based on the given comparator.
      *
-     * @param elements   provided iterable of elements
+     * @param elements provided iterable of elements
      * @param comparator an object that will be used to compare elements
-     * @param <T>        type of elements
+     * @param <T> type of elements
      * @return optional max value
      */
     // todo: create a method and implement its logic manually without using util method from JDK
+    public static <T> Optional<T> findMax(Iterable<T> elements, Comparator<T> comparator) {
+      Iterator<T> iterator = elements.iterator();
+      T max = iterator.next();
+      T current;
+      while (iterator.hasNext()) {
+        current = iterator.next();
+        if (comparator.compare(current, max) > 0) {
+          max = current;
+        }
+      }
+      return Optional.of(max);
+    }
 
     /**
      * findMostRecentlyCreatedEntity is a generic util method that accepts a collection of entities and returns the
@@ -250,7 +265,13 @@ public class CrazyGenerics {
     public static void swap(List<?> elements, int i, int j) {
       Objects.checkIndex(i, elements.size());
       Objects.checkIndex(j, elements.size());
-      throw new ExerciseNotCompletedException(); // todo: complete method implementation
+//      throw new ExerciseNotCompletedException(); // todo: complete method implementation
+      swapAuxiliary(elements, i, j);
+    }
+
+    private static <T> void swapAuxiliary(List<T> list, int i, int j) {
+      T element = list.get(i);
+      list.set(i, list.set(j, element));
     }
 
   }
