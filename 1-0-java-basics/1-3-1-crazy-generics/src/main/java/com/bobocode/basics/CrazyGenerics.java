@@ -2,6 +2,7 @@ package com.bobocode.basics;
 
 import com.bobocode.basics.util.BaseEntity;
 import com.bobocode.util.ExerciseNotCompletedException;
+import java.util.function.Predicate;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -164,7 +165,7 @@ public class CrazyGenerics {
     /**
      * An util method that allows to print a dashed list of elements
      */
-    public static void print(List<Integer> list) {
+    public static void print(List<?> list) {
       // todo: refactor it so the list of any type can be printed, not only integers
       list.forEach(element -> System.out.println(" – " + element));
     }
@@ -177,8 +178,9 @@ public class CrazyGenerics {
      * @param entities provided collection of entities
      * @return true if at least one of the elements has null id
      */
-    public static boolean hasNewEntities(Collection<BaseEntity> entities) {
-      throw new ExerciseNotCompletedException(); // todo: refactor parameter and implement method
+    public static boolean hasNewEntities(Collection<? extends BaseEntity> entities) {
+//      throw new ExerciseNotCompletedException(); // todo: refactor parameter and implement method
+      return entities.stream().map(i -> i.getUuid()).anyMatch(i -> i == null);
     }
 
     /**
@@ -190,8 +192,10 @@ public class CrazyGenerics {
      * @param validationPredicate criteria for validation
      * @return true if all entities fit validation criteria
      */
-    public static boolean isValidCollection() {
-      throw new ExerciseNotCompletedException(); // todo: add method parameters and implement the logic
+    public static boolean isValidCollection(Collection<? extends BaseEntity> entities,
+        Predicate<? super BaseEntity> validationPredicate) {
+//      throw new ExerciseNotCompletedException(); // todo: add method parameters and implement the logic
+      return entities.stream().allMatch(validationPredicate);
     }
 
     /**
