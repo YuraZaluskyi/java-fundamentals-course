@@ -4,6 +4,7 @@ package com.bobocode.cs;
 import com.bobocode.util.ExerciseNotCompletedException;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * {@link LinkedList} is a list implementation that is based on singly linked generic nodes. A node
@@ -35,7 +36,11 @@ public class LinkedList<T> implements List<T> {
    * @return a new list of elements the were passed as method parameters
    */
   public static <T> LinkedList<T> of(T... elements) {
-    throw new ExerciseNotCompletedException(); // todo: implement this method
+//    throw new ExerciseNotCompletedException(); // todo: implement this method
+    LinkedList<T> list = new LinkedList<>();
+    Stream.of(elements).forEach(list::add);
+    list.size = elements.length;
+    return list;
   }
 
   /**
@@ -75,10 +80,13 @@ public class LinkedList<T> implements List<T> {
   @Override
   public void add(int index, T element) {
 //    throw new ExerciseNotCompletedException(); // todo: implement this method
-    Objects.checkIndex(index, size);
+    if (index < 0 || index > size) {
+      throw new IndexOutOfBoundsException();
+    }
     Node<T> newNode = new Node<>(element);
-
-    if (size > 0 && index == 0) {
+    if (first == null && index == 0) {
+      addByZeroIndexWhenListIsEmpty(element);
+    } else if (size > 0 && index == 0) {
       addToHeadWhenListNotEmpty(element);
     } else if (index == size - 1) {
       addByIndexToTheEndOfList(element);
