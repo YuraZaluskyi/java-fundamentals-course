@@ -3,6 +3,7 @@ package com.bobocode.cs;
 import com.bobocode.util.ExerciseNotCompletedException;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * {@link ArrayList} is an implementation of {@link List} interface. This resizable data structure
@@ -45,7 +46,10 @@ public class ArrayList<T> implements List<T> {
    * @return new instance
    */
   public static <T> List<T> of(T... elements) {
-    throw new ExerciseNotCompletedException(); // todo: implement this method
+//    throw new ExerciseNotCompletedException(); // todo: implement this method
+    List<T> list = new ArrayList<>();
+    Stream.of(elements).forEach(list::add);
+    return list;
   }
 
   /**
@@ -55,7 +59,18 @@ public class ArrayList<T> implements List<T> {
    */
   @Override
   public void add(T element) {
-    throw new ExerciseNotCompletedException(); // todo: implement this method
+//    throw new ExerciseNotCompletedException(); // todo: implement this method
+    increaseArrayIfNeeded();
+    array[size++] = element;
+  }
+
+  private void increaseArrayIfNeeded() {
+    int n = array.length;
+    if (size == n) {
+      Object[] newArray = new Object[n * 2];
+      System.arraycopy(array, 0, newArray, 0, n);
+      array = newArray;
+    }
   }
 
   /**
@@ -66,7 +81,19 @@ public class ArrayList<T> implements List<T> {
    */
   @Override
   public void add(int index, T element) {
-    throw new ExerciseNotCompletedException(); // todo: implement this method
+//    throw new ExerciseNotCompletedException(); // todo: implement this method
+//    Objects.checkIndex(index, size);
+    if (index < 0 || index > size) {
+      throw new IndexOutOfBoundsException();
+    }
+    if (index == size) {
+      add(element);
+    } else {
+      increaseArrayIfNeeded();
+      System.arraycopy(array, index, array, index + 1, size - index);
+      array[index] = element;
+      size++;
+    }
   }
 
   /**
