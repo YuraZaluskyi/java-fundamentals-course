@@ -11,7 +11,7 @@ public class Functions {
   public static FunctionMap<Integer, Integer> intFunctionMap() {
     // todo: add simple functions to the function map (abs, sgn, increment, decrement, square)
     FunctionMap<Integer, Integer> intFunctionMap = new FunctionMap<>();
-    intFunctionMap.addFunction("abs", i -> i >= 0 ? i : -i);
+    intFunctionMap.addFunction("abs", i -> (i >= 0) ? i : -i);
     intFunctionMap.addFunction("sgn", i -> {
       if (i == 0) {
         return 0;
