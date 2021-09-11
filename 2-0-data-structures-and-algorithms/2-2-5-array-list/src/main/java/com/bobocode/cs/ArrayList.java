@@ -163,8 +163,25 @@ public class ArrayList<T> implements List<T> {
    */
   @Override
   public T remove(int index) {
-    throw new ExerciseNotCompletedException(); // todo: implement this method
+//    throw new ExerciseNotCompletedException(); // todo: implement this method
+    Objects.checkIndex(index, size);
+    if (index == size - 1) {
+      return removeLastElementByIndex();
+    } else {
+      T element = (T) array[index];
+      System.arraycopy(array, index + 1, array, index, size - index - 1);
+      size--;
+      return element;
+    }
   }
+
+  private T removeLastElementByIndex() {
+    T element = (T) array[size - 1];
+    array[size - 1] = null;
+    size--;
+    return element;
+  }
+
 
   /**
    * Checks for existing of a specific element in the list.
