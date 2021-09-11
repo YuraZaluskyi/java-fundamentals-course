@@ -106,7 +106,8 @@ public class CrazyLambdas {
    * @return square operation
    */
   public static IntUnaryOperator intSquareOperation() {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+    return i -> i * i;
   }
 
   /**
@@ -115,7 +116,8 @@ public class CrazyLambdas {
    * @return binary sum operation
    */
   public static LongBinaryOperator longSumOperation() {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+    return (x, y) -> x + y;
   }
 
   /**
@@ -124,7 +126,8 @@ public class CrazyLambdas {
    * @return string to int converter
    */
   public static ToIntFunction<String> stringToIntConverter() {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+    return Integer::parseInt;
   }
 
   /**
@@ -135,7 +138,8 @@ public class CrazyLambdas {
    * @return a function supplier
    */
   public static Supplier<IntUnaryOperator> nMultiplyFunctionSupplier(int n) {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+    return null;
   }
 
   /**
