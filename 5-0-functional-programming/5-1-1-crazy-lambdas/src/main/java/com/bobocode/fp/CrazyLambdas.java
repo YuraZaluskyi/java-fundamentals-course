@@ -183,12 +183,11 @@ public class CrazyLambdas {
    */
   public static Function<Runnable, Supplier<Thread>> runnableToThreadSupplierFunction() {
 //    throw new ExerciseNotCompletedException();
-//    Function<Runnable, Supplier<Thread>> function = (runnable) -> () -> new Thread(runnable);
-    Supplier<Thread> supplier = () -> {
-      return new Thread();
+    Function<Runnable, Supplier<Thread>> function = runnable -> {
+      Thread thread = new Thread(runnable);
+      thread.start();
+      return () -> thread;
     };
-    Function<Runnable, Supplier<Thread>> function = runnable -> () -> new Thread(runnable);
-
     return function;
   }
 
