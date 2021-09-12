@@ -149,7 +149,8 @@ public class CrazyLambdas {
    * @return function that composes functions with trim() function
    */
   public static UnaryOperator<Function<String, String>> composeWithTrimFunction() {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+    return function -> function.compose(String::trim);
   }
 
   /**
