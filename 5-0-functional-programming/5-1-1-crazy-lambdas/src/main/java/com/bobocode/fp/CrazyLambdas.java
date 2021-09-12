@@ -139,7 +139,7 @@ public class CrazyLambdas {
    */
   public static Supplier<IntUnaryOperator> nMultiplyFunctionSupplier(int n) {
 //    throw new ExerciseNotCompletedException();
-    return null;
+    return () -> number -> number * n;
   }
 
   /**
@@ -160,7 +160,9 @@ public class CrazyLambdas {
    * @return a thread supplier
    */
   public static Supplier<Thread> runningThreadSupplier(Runnable runnable) {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+    Supplier<Thread> supplier = () -> new Thread(runnable);
+    return supplier;
   }
 
   /**
@@ -180,7 +182,14 @@ public class CrazyLambdas {
    * @return a function that transforms runnable into a thread supplier
    */
   public static Function<Runnable, Supplier<Thread>> runnableToThreadSupplierFunction() {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+//    Function<Runnable, Supplier<Thread>> function = (runnable) -> () -> new Thread(runnable);
+    Supplier<Thread> supplier = () -> {
+      return new Thread();
+    };
+    Function<Runnable, Supplier<Thread>> function = runnable -> () -> new Thread(runnable);
+
+    return function;
   }
 
   /**
@@ -194,8 +203,11 @@ public class CrazyLambdas {
    * @return a binary function that receiver predicate and function and compose them to create a new
    * function
    */
-  public static BiFunction<IntUnaryOperator, IntPredicate, IntUnaryOperator> functionToConditionalFunction() {
-    throw new ExerciseNotCompletedException();
+  public static BiFunction<IntUnaryOperator, IntPredicate, IntUnaryOperator> functionToConditionalFunction
+  () {
+//    throw new ExerciseNotCompletedException();
+
+    return null;
   }
 
   /**
@@ -207,8 +219,17 @@ public class CrazyLambdas {
    * @return a high-order function that fetches a function from a function map by a given name or
    * returns identity()
    */
-  public static BiFunction<Map<String, IntUnaryOperator>, String, IntUnaryOperator> functionLoader() {
-    throw new ExerciseNotCompletedException();
+  public static BiFunction<Map<String, IntUnaryOperator>, String, IntUnaryOperator> functionLoader
+  () {
+//    throw new ExerciseNotCompletedException();
+    BiFunction<Map<String, IntUnaryOperator>, String, IntUnaryOperator> biFunction =
+        (mapFunction, str) -> {
+          if (mapFunction.containsKey(str)) {
+            return mapFunction.get(str);
+          }
+          return IntUnaryOperator.identity();
+        };
+    return biFunction;
   }
 
   /**
@@ -218,6 +239,7 @@ public class CrazyLambdas {
    * @return a supplier instance
    */
   public static Supplier<Supplier<Supplier<String>>> trickyWellDoneSupplier() {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+    return () -> () -> () -> "WELL DONE!";
   }
 }
