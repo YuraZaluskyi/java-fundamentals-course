@@ -84,7 +84,8 @@ public class CrazyOptionals {
    * @return provided or generated account
    */
   public static Account getOrGenerateAccount(AccountProvider accountProvider) {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+    return accountProvider.getAccount().orElseGet(Accounts::generateAccount);
   }
 
   /**
@@ -103,7 +104,9 @@ public class CrazyOptionals {
    * @return provided account
    */
   public static Account getAccount(AccountProvider accountProvider) {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+    return accountProvider.getAccount()
+        .orElseThrow(() -> new AccountNotFoundException("No Account provided!"));
   }
 
   /**
@@ -113,6 +116,7 @@ public class CrazyOptionals {
    */
   public static Optional<BigDecimal> retrieveCreditBalance(CreditAccountProvider accountProvider) {
     throw new ExerciseNotCompletedException();
+    
   }
 
 
@@ -176,4 +180,3 @@ public class CrazyOptionals {
     throw new ExerciseNotCompletedException();
   }
 }
-
