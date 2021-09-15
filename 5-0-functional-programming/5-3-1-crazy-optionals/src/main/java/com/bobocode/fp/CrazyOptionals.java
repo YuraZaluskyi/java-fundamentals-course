@@ -14,6 +14,7 @@ import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.ToDoubleFunction;
+import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.math.BigDecimal;
@@ -168,16 +169,23 @@ public class CrazyOptionals {
    * @return the lowest balance values
    */
   public static OptionalDouble findMinBalanceValue(List<Account> accounts) {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+    if (accounts.isEmpty()) {
+      return OptionalDouble.empty();
+    }
+    return OptionalDouble.of(accounts.stream().map(i -> i.getBalance().doubleValue())
+        .min(Comparator.naturalOrder()).get());
   }
 
   /**
-   * Finds an {@link Account} with max balance and processes it using {@link
+   * Finds an {@link Account} with max balance processes it using {@link
    * AccountService#processAccount(Account)}
    */
   public static void processAccountWithMaxBalance(List<Account> accounts,
       AccountService accountService) {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+    accounts.stream().max(Comparator.comparing(Account::getBalance))
+        .ifPresent(i -> accountService.processAccount(i));
   }
 
   /**
