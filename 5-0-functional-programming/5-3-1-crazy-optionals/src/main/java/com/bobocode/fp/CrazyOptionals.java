@@ -21,6 +21,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalDouble;
+import javax.swing.text.html.Option;
 
 /**
  * {@link CrazyOptionals} is an exercise class. Each method represents some operation with a {@link
@@ -134,7 +135,11 @@ public class CrazyOptionals {
    * @return optional gmail account
    */
   public static Optional<Account> retrieveAccountGmail(AccountProvider accountProvider) {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+//    Optional<Account> account = Optional.ofNullable(accountProvider.getAccount()).get();
+    Optional<Account> account = accountProvider.getAccount();
+    account.ifPresent(i -> i.getEmail());
+    return null;
   }
 
   /**
