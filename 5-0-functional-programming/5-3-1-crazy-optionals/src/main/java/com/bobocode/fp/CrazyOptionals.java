@@ -138,8 +138,7 @@ public class CrazyOptionals {
 //    throw new ExerciseNotCompletedException();
 //    Optional<Account> account = Optional.ofNullable(accountProvider.getAccount()).get();
     Optional<Account> account = accountProvider.getAccount();
-    account.ifPresent(i -> i.getEmail());
-    return null;
+    return account.filter(i -> i.getEmail().split("@").equals("gmail.com"));
   }
 
   /**
