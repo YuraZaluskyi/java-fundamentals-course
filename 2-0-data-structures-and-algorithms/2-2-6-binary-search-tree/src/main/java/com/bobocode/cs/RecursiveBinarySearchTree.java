@@ -98,11 +98,33 @@ public class RecursiveBinarySearchTree<T extends Comparable<T>> implements Binar
 
   @Override
   public int depth() {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+    if (root == null) {
+      return 0;
+    }
+    return depth(root) - 1;
+  }
+
+  private int depth(Node<T> current) {
+    if (current == null) {
+      return 0;
+    } else {
+      return 1 + Math.max(depth(current.left), depth(current.right));
+    }
   }
 
   @Override
   public void inOrderTraversal(Consumer<T> consumer) {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+    inOrderTraversal(root, consumer);
+  }
+
+  private void inOrderTraversal(Node<T> current, Consumer<T> consumer) {
+    if (current != null) {
+      inOrderTraversal(current.left, consumer);
+      consumer.accept(current.element);
+      inOrderTraversal(current.right, consumer);
+    }
+
   }
 }
