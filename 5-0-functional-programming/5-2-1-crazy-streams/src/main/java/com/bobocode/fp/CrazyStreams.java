@@ -1,5 +1,6 @@
 package com.bobocode.fp;
 
+import com.bobocode.fp.exception.EntityNotFoundException;
 import com.bobocode.model.Account;
 import com.bobocode.util.ExerciseNotCompletedException;
 import java.util.stream.Collectors;
@@ -81,7 +82,8 @@ public class CrazyStreams {
    * @return total balance of all accounts
    */
   public BigDecimal calculateTotalBalance() {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+    return accounts.stream().map(i -> i.getBalance()).reduce((i, j) -> i.add(j)).get();
   }
 
   /**
@@ -91,6 +93,7 @@ public class CrazyStreams {
    */
   public List<Account> sortByFirstAndLastNames() {
     throw new ExerciseNotCompletedException();
+
   }
 
   /**
@@ -110,7 +113,11 @@ public class CrazyStreams {
    * @return account balance
    */
   public BigDecimal getBalanceByEmail(String email) {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+    return accounts.stream().filter(i -> i.getEmail().equals(email))
+        .findFirst()
+        .orElseThrow(() -> new EntityNotFoundException("Cannot find Account by email=" + email))
+        .getBalance();
   }
 
   /**
@@ -120,7 +127,8 @@ public class CrazyStreams {
    * @return map of accounts by its ids
    */
   public Map<Long, Account> collectAccountsById() {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+    return accounts.stream().collect(Collectors.toMap(i -> i.getId(), j -> j));
   }
 
   /**
