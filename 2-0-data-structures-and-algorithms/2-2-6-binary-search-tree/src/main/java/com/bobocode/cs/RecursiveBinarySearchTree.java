@@ -125,6 +125,5 @@ public class RecursiveBinarySearchTree<T extends Comparable<T>> implements Binar
       consumer.accept(current.element);
       inOrderTraversal(current.right, consumer);
     }
-
   }
 }
