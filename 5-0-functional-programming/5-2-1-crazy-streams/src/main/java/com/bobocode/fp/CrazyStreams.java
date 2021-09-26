@@ -1,5 +1,10 @@
 package com.bobocode.fp;
 
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.mapping;
+import static java.util.stream.Collectors.toSet;
+
+import com.bobocode.data.Accounts;
 import com.bobocode.fp.exception.EntityNotFoundException;
 import com.bobocode.model.Account;
 import com.bobocode.util.ExerciseNotCompletedException;
@@ -73,7 +78,10 @@ public class CrazyStreams {
    * @return total number of letters of first and last names of all accounts
    */
   public int getNumOfLettersInFirstAndLastNames() {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+    return accounts.stream()
+        .mapToInt(i -> i.getFirstName().length() + i.getLastName().length())
+        .sum();
   }
 
   /**
@@ -92,8 +100,10 @@ public class CrazyStreams {
    * @return list of accounts sorted by first and last names
    */
   public List<Account> sortByFirstAndLastNames() {
-    throw new ExerciseNotCompletedException();
-
+//    throw new ExerciseNotCompletedException();
+    return accounts.stream()
+        .sorted(Comparator.comparing(Account::getFirstName).thenComparing(Account::getLastName))
+        .collect(Collectors.toList());
   }
 
   /**
@@ -102,7 +112,9 @@ public class CrazyStreams {
    * @return true if there is an account that has an email with provided domain
    */
   public boolean containsAccountWithEmailDomain(String emailDomain) {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+    return accounts.stream().anyMatch(i -> i.getEmail().split("@")[1].equals(emailDomain));
+
   }
 
   /**
@@ -140,7 +152,9 @@ public class CrazyStreams {
    * @return map of account by its ids the were created in a particular year
    */
   public Map<String, BigDecimal> collectBalancesByEmailForAccountsCreatedOn(int year) {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+    return accounts.stream().filter(i -> i.getCreationDate().getYear() == year)
+        .collect(Collectors.toMap(Account::getEmail, Account::getBalance));
   }
 
   /**
@@ -150,7 +164,9 @@ public class CrazyStreams {
    * @return a map where key is a last name and value is a set of first names
    */
   public Map<String, Set<String>> groupFirstNamesByLastNames() {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+    return accounts.stream()
+        .collect(groupingBy(Account::getLastName, mapping(Account::getFirstName, toSet())));
   }
 
   /**
