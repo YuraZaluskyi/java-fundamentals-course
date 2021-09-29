@@ -10,7 +10,6 @@ public class MergeSort {
     System.out.println(Arrays.toString(array));
     mergeSort(array, array.length);
     System.out.println(Arrays.toString(array));
-
   }
 
   public static void mergeSort(int[] array, int n) {

@@ -1,7 +1,9 @@
 package com.bobocode.fp;
 
 import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.mapping;
+import static java.util.stream.Collectors.reducing;
 import static java.util.stream.Collectors.toSet;
 
 import com.bobocode.data.Accounts;
@@ -177,7 +179,12 @@ public class CrazyStreams {
    * @return a map where a key is a birthday month and value is comma-separated first names
    */
   public Map<Month, String> groupCommaSeparatedFirstNamesByBirthdayMonth() {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+    return accounts.stream()
+        .collect(groupingBy(i -> i.getBirthday().getMonth(),
+            mapping(j -> j.getFirstName(), joining(", "))));
+
+
   }
 
   /**
@@ -188,7 +195,11 @@ public class CrazyStreams {
    * in that month
    */
   public Map<Month, BigDecimal> groupTotalBalanceByCreationMonth() {
-    throw new ExerciseNotCompletedException();
+//    throw new ExerciseNotCompletedException();
+    return accounts.stream()
+        .collect(groupingBy(
+            i -> i.getCreationDate().getMonth(),
+            mapping(j -> j.getBalance(), reducing(BigDecimal.ZERO, (a, b) -> a.add(b)))));
   }
 
   /**
@@ -213,4 +224,3 @@ public class CrazyStreams {
     throw new ExerciseNotCompletedException();
   }
 }
-
