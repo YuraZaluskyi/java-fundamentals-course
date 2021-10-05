@@ -1,4 +1,4 @@
-package com.bobcode.cs;
+package com.bobocode.cs;
 
 public class InsertionSort {
 

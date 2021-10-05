@@ -1,4 +1,4 @@
-package com.bobcode.cs;
+package com.bobocode.cs;
 
 import java.util.Arrays;
 
